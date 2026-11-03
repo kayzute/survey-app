@@ -1,0 +1,46 @@
+# Local environment configuration and credentials
+.env
+.env.*
+!.env.example
+*.env
+*.local
+*secret*
+*credential*
+*password*
+*service-role*
+*service_role*
+*service*key*
+.aws/
+.netrc
+.npmrc
+id_rsa*
+id_ed25519*
+
+# Supabase local state and generated credentials
+supabase/.temp/
+supabase/.branches/
+supabase/.env
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.p8
+
+# Dependencies and generated output
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+.turbo/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
