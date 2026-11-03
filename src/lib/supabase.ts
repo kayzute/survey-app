@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import { isDemoLoginAllowed } from './localDemo'
 
 let client: SupabaseClient | null = null
 
@@ -19,5 +20,15 @@ export function getSupabaseClient(): SupabaseClient {
 
 export function isSupabaseConfigured(): boolean {
   return Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY)
+}
+
+export function isDemoLoginEnabled(): boolean {
+  if (typeof window === 'undefined') return false
+  return isDemoLoginAllowed(
+    import.meta.env.DEV,
+    window.location.hostname,
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_ENABLE_DEMO_LOGIN === 'true',
+  )
 }
 

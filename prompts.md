@@ -113,3 +113,16 @@
 
 - Confirmed in the live Vite error log: TypeError: crypto.randomUUID is not a function from 
 ewQuestion() at the time the user clicked Add question. The fallback regression test passes; all 17 frontend tests, build, and lint pass. The running dev server has hot-reloaded the fix.
+
+- Exact-slug checks against hosted Supabase: public resolver returned HTTP 200 and status ctive; questions and choices were also readable anonymously. Supabase CORS preflight from http://10.194.44.201:5173 returned HTTP 200 with wildcard origin. The same student URL displayed the survey form correctly in a new regular Google Chrome tab. The Codex in-app browser tab still shows Something went wrong, isolating the current discrepancy to that embedded browser/runtime rather than the survey record or database policy.
+
+### User clarification
+> This app is not going to be built for users. I actually want the button included in the deployed version once we move the app to Render to deploy.
+
+### Recorded decision outside supplied context documents
+- Keep the one-click demo instructor available for localhost testing and make it opt-in for a future Render demo deployment with `VITE_ENABLE_DEMO_LOGIN=true`. Because the demo credentials grant instructor access, a hosted demo must use a separate disposable Supabase project without real or private data.
+
+### Latest notable interactions
+- Switched ignored `.env.local` to local Supabase and changed Vite to bind only `127.0.0.1`; removed the Cloudflare Pages redirect and hosting instructions.
+- Local Supabase's email/password Auth configuration needed a stop/start before it took effect. After restart, the demo account signed in successfully. pgTAP passed all 24 assertions.
+- Added a local-only demo login button and explicit opt-in support for a future hosted demo build. Production build with the flag disabled omits the demo credentials.

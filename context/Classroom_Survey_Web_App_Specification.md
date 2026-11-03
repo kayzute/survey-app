@@ -209,7 +209,7 @@ QR Code
 
 Hosting
 
--   Cloudflare Pages
+-   Render (planned for productionization; local development remains localhost-only)
 
 Version Control
 

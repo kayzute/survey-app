@@ -219,18 +219,18 @@ Implementation order for this build: Supabase PostgreSQL schema and policies, ba
 
 ---
 
-# Phase 15 — Deployment
+# Phase 15 — Productionization (Deferred; Render)
 
 - [ ] Push the project to GitHub.
-- [ ] Create the Cloudflare Pages site.
-- [ ] Connect Cloudflare Pages to the GitHub repository.
-- [ ] Configure production environment variables.
+- [ ] Create a Render deployment when productionization begins.
+- [ ] Create a separate disposable Supabase project for the public demo.
+- [ ] Apply migrations and provision the demo instructor in that project.
+- [ ] Enable the public demo login only for that demo deployment.
+- [ ] Configure Render build and environment variables.
 - [ ] Deploy the application.
 - [ ] Configure SPA routing.
-- [ ] Verify production login.
-- [ ] Verify QR codes point to the production URL.
-- [ ] Test student submissions in production.
-- [ ] Test instructor results in production.
+- [ ] Verify demo login and QR codes on the Render URL.
+- [ ] Test student submissions and instructor results on the demo deployment.
 
 ---
 

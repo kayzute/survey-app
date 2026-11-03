@@ -4,14 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "lint": "eslint .",
     "test": "vitest run",
-    "db:start": "supabase start",
+    "db:start": "supabase start && node scripts/setup-local.mjs",
     "db:stop": "supabase stop",
-    "db:reset": "supabase db reset",
+    "db:reset": "supabase db reset && node scripts/setup-local.mjs",
+    "db:setup": "node scripts/setup-local.mjs",
     "db:test": "supabase test db",
     "test:watch": "vitest"
   },
