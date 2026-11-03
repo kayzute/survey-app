@@ -1,5 +1,5 @@
 begin;
-select plan(28);
+select plan(30);
 
 insert into public.surveys (id, title, status, public_slug)
 values
@@ -108,6 +108,10 @@ select ok(not has_table_privilege('authenticated', 'public.questions', 'delete')
           'instructors cannot directly delete historical questions');
 select ok(has_table_privilege('authenticated', 'public.responses', 'select'),
           'instructors can read responses for results and export');
+select ok(has_function_privilege('authenticated', 'public.resolve_public_survey(text)', 'execute'),
+          'signed-in instructors can open public student links in the same browser');
+select ok(has_function_privilege('authenticated', 'public.submit_survey_response(uuid, text, jsonb)', 'execute'),
+          'signed-in browser sessions can submit public student responses');
 
 reset role;
 set local role authenticated;

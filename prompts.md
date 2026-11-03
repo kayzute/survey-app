@@ -186,3 +186,51 @@ ewQuestion() at the time the user clicked Add question. The fallback regression 
 
 ### Notable interaction
 - User confirmed submission from the QR-linked form worked in the same-computer Chrome test.
+
+### User prompt
+> how come when I do it it says Survey unavailable now?
+
+### Notable interaction
+- Checking the current active public survey slugs in the hosted Supabase project to determine whether the link became inactive or unknown.
+
+### User prompt
+> I duplicated the survey: Copy of Geography Check. Here is the student link: http://localhost:5174/s/5b49a059210545eaa9
+>
+> Here are the results when I click it. Survey unavailable
+> Something went wrong. Please try again.
+
+### Notable interaction
+- The user reports a generic student-route error for the duplicated survey's student link. Checking that exact slug through hosted Supabase's public resolver.
+
+### User prompt
+> Chrome console shows the React DevTools notice and two failed requests to resolve_public_survey returning HTTP 403.
+
+### Notable interaction
+- User supplied the browser console error; investigating Supabase authorization for the public survey RPC.
+
+### Decision documented
+- Public student survey lookup and submission RPCs now permit both anon and authenticated roles. This is needed because Supabase JS keeps the instructor session in browser storage and attaches its authenticated JWT to requests opened from that same browser; the SQL functions still validate survey state and answer ownership.
+
+### User prompt
+> Perfect all fixed! What's left?
+
+### Notable interaction
+- Reviewing the TODO checklist against completed implementation, test results, current Supabase configuration, and deployment notes.
+
+### User prompt
+> Update the TODO me to refer to Render. Check off any stale boxes that we have done. The migration workflow should be all set. Now I'm going to deploy this on render as everything else has been confirmed.
+
+### Notable interaction
+- Updated deployment checklist to use Render, marked pre-deployment functionality and checks as user-confirmed, and left Render deployment and production verification steps open.
+
+### User prompt
+> Where can I go to edit the migration workflow?
+
+### Notable interaction
+- Pointing the user to the repository migration files and the hosted Supabase workflow for applying schema changes.
+
+### User prompt
+> We should be all set then. Push everything to GitHub
+
+### Notable interaction
+- Reviewing all pending repository changes and secret-ignore rules before committing and pushing to GitHub.

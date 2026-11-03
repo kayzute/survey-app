@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/kayzute/survey-app#readme",
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.118.0",
     "qrcode": "^1.5.4",
     "react": "^19.3.1",
