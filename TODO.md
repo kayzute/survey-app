@@ -220,34 +220,34 @@ This roadmap breaks the implementation into small, testable phases ordered from 
 
 # Phase 15 — Deployment
 
-Pre-deployment functionality and checks have been confirmed by the user. Deployment and production acceptance checks remain.
+The user confirmed the Render deployment and production functionality.
 
 - [x] Push the project to GitHub.
-- [ ] Push the latest verified changes and migration to GitHub.
-- [ ] Create the Render web service from the Blueprint.
-- [ ] Connect the Render service to the GitHub repository.
-- [ ] Configure Render production environment variables.
-- [ ] Deploy the application to Render.
+- [x] Push the latest verified changes and migration to GitHub.
+- [x] Create the Render web service from the Blueprint.
+- [x] Connect the Render service to the GitHub repository.
+- [x] Configure Render production environment variables.
+- [x] Deploy the application to Render.
 - [x] Configure SPA routing in the Render Blueprint.
-- [ ] Verify production login.
-- [ ] Verify QR codes point to the production URL.
-- [ ] Test student submissions in production.
-- [ ] Test instructor results in production.
+- [x] Verify production login.
+- [x] Verify QR codes point to the production URL.
+- [x] Test student submissions in production.
+- [x] Test instructor results in production.
 
 ---
 
-# Phase 16 — Post-MVP Enhancements
+# Deferred Ideas — Post-MVP Enhancements
 
-- [ ] Add live updating results with Supabase Realtime.
-- [ ] Add question bank.
-- [ ] Add survey import/export as JSON.
-- [ ] Add Markdown import.
-- [ ] Add short-answer questions.
-- [ ] Add checkbox questions.
-- [ ] Add rating-scale questions.
-- [ ] Add numeric questions.
-- [ ] Add AI-assisted question generation.
-- [ ] Add LMS integration.
-- [ ] Add multiple instructors.
-- [ ] Add course and semester organization.
-- [ ] Add analytics across multiple surveys.
+- Add live updating results with Supabase Realtime.
+- Add question bank.
+- Add survey import/export as JSON.
+- Add Markdown import.
+- Add short-answer questions.
+- Add checkbox questions.
+- Add rating-scale questions.
+- Add numeric questions.
+- Add AI-assisted question generation.
+- Add LMS integration.
+- Add multiple instructors.
+- Add course and semester organization.
+- Add analytics across multiple surveys.

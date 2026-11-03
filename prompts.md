@@ -234,3 +234,39 @@ ewQuestion() at the time the user clicked Add question. The fallback regression 
 
 ### Notable interaction
 - Reviewing all pending repository changes and secret-ignore rules before committing and pushing to GitHub.
+
+### User prompt
+> What should the settings on my render be? Any language or root directory or build/start commands?
+
+### Notable interaction
+- Looking up the checked-in Render Blueprint and current Render static-site settings to guide manual service setup.
+
+### User prompt
+> I have uploaded to the render site: https://survey-app-0z25.onrender.com/. All the functionality works except for scanning the QR code and deleting surveys
+
+### Notable interaction
+- Investigating production QR link construction and the authenticated delete RPC against the Render deployment.
+
+### User prompt
+> Deleting closed surveys shows: Something went wrong. Please try again.
+
+### Notable interaction
+- Inspecting the delete RPC, database permission migration, and dashboard refresh path to identify why production deletion is surfacing a generic error.
+
+### User prompt
+> The Render presentation URL is https://survey-app-0z25.onrender.com/surveys/762b77ed-378e-4ffa-aab2-d1a1fb9834f5/present and the student link is https://survey-app-0z25.onrender.com/s/5aa6d4de1bd54bbbba. Opening the QR code shows “Not found” on a black page.
+
+### Notable interaction
+- Comparing the production deep-link response, SPA fallback, and client-side routes to diagnose the QR destination.
+
+### User prompt
+> The rewrite rule worked. The delete request returns PGRST202: Supabase cannot find public.delete_survey(p_survey_id) in its schema cache.
+
+### Notable interaction
+- Confirmed the production delete RPC is absent from PostgREST's schema cache; locating its defining migration and preparing the hosted database repair step.
+
+### User prompt
+> Okay everything is done. We can cross off the rest of the TODO
+
+### Notable interaction
+- Marked Render deployment and production acceptance checks complete based on the user's confirmation; retained future enhancements as deferred ideas rather than completed work.
