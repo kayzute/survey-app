@@ -10,9 +10,13 @@ interface EditableQuestion extends DraftQuestionInput {
   key: string
 }
 
+let questionKeyFallback = 0
+
 function newQuestion(type: QuestionType = 'multiple_choice'): EditableQuestion {
   return {
-    key: crypto.randomUUID(),
+    // randomUUID is restricted to secure contexts in some browsers. The app's
+    // LAN test uses HTTP, so keep question creation working there too.
+    key: globalThis.crypto?.randomUUID?.() ?? `question-${Date.now()}-${++questionKeyFallback}`,
     question_text: '',
     question_type: type,
     choices: type === 'true_false'

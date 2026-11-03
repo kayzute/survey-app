@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { SurveyEditorPage } from './SurveyEditorPage'
 import { getSurveyById, saveSurveyDraft } from '../lib/surveyApi'
 import type { Survey } from '../lib/types'
@@ -20,6 +20,8 @@ const savedSurvey: Survey = {
 }
 
 describe('SurveyEditorPage', () => {
+  afterEach(() => vi.unstubAllGlobals())
+
   beforeEach(() => {
     vi.mocked(saveSurveyDraft).mockResolvedValue(savedSurvey)
     vi.mocked(getSurveyById).mockResolvedValue(savedSurvey)
@@ -43,5 +45,18 @@ describe('SurveyEditorPage', () => {
       question_text: 'What is recursion?', question_type: 'multiple_choice',
       choices: [{ choice_text: 'A function calls itself' }, { choice_text: 'A loop' }],
     }])
+  })
+
+  it('adds a question when the browser does not expose crypto.randomUUID', async () => {
+    vi.stubGlobal('crypto', { randomUUID: undefined })
+    const user = userEvent.setup()
+    render(<MemoryRouter initialEntries={['/surveys/new']}><Routes>
+      <Route path="/surveys/new" element={<SurveyEditorPage />} />
+    </Routes></MemoryRouter>)
+
+    await user.click(screen.getByRole('button', { name: '+ Add question' }))
+
+    expect(screen.getByRole('heading', { name: 'Question 1' })).toBeInTheDocument()
+    expect(screen.getByLabelText('Question 1, choice 1')).toBeInTheDocument()
   })
 })

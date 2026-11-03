@@ -86,3 +86,30 @@
 - The user started Docker Desktop; I started the repository's local Supabase stack. Its migration applied, and all 24 pgTAP database checks now pass after correcting two test-fixture syntax/setup issues.
 
 - Follow-up verification: the 16 frontend tests, production build, and lint passed again. Docker’s Linux engine is now unreachable in this session; prior pgTAP run passed 24 assertions. GitHub DNS lookup also failed during the initial remote check.
+
+### Latest user prompt
+> Okay, so now it will work locally and connects to the Supabase. When I opened the URL on my device to fill out a response, it said survey was unavailable. I also want to be able to test that this works on other devices so we will have to productionize this. Let's examine why the survey was unavailable and continue from there
+
+### Notable interaction
+- The project has a hosted Supabase URL configured, but the Vite dev script was bound to `127.0.0.1`; the presentation QR uses the browser's current origin. A loopback URL on a phone points to the phone, not the computer. The LAN test workflow is now documented and Vite is configured to bind on all interfaces for same-network tests.
+- The hosted database's active-survey state could not yet be confirmed from this environment; the first Supabase REST check failed at network fetch.
+- I asked which link was opened and for the exact unavailable error text; awaiting the user's reply while continuing the independent LAN access fix.
+
+### User decision outside supplied context documents
+- The user wants to verify student survey access on additional devices and prepare the app for production use.
+- Follow-up confirmed: read-only request to the configured hosted Supabase project returned HTTP 200 and zero active surveys, so the project currently has no survey the public route can serve. The dev server now starts at `0.0.0.0`; its LAN URL `http://10.194.44.201:5173/` returned HTTP 200 from this computer.
+- npm test (16 tests), build, and lint all pass after the LAN-binding and documentation changes.
+
+### User clarification
+> The link below the QR code
+
+- The user opened the presentation page's printed URL rather than scanning the QR; this uses the exact same URL generated from the instructor page's browser origin.
+
+### Latest user prompt
+> Add question returns a blank screen so I can't test any further.
+
+### Notable interaction
+- The open browser URL was `/surveys/new` on the LAN HTTP origin. The editor created question keys with an unguarded `crypto.randomUUID()` call, which can be absent on a non-secure LAN HTTP origin. Added a fallback and a regression test simulating browsers without `randomUUID`.
+
+- Confirmed in the live Vite error log: TypeError: crypto.randomUUID is not a function from 
+ewQuestion() at the time the user clicked Add question. The fallback regression test passes; all 17 frontend tests, build, and lint pass. The running dev server has hot-reloaded the fix.

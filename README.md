@@ -16,6 +16,12 @@ A mobile-friendly classroom survey app built with React, TypeScript, Supabase Po
 5. Create the instructor account in Supabase Dashboard under **Authentication → Users**. Keep public sign-up disabled in the hosted project as well; the local Supabase configuration disables it by default.
 6. Start the app with `npm run dev` and open the printed local URL.
 
+### Test student links from another device
+
+For a quick classroom-network test, connect the computer and phone/tablet to the same Wi-Fi, start the app with `npm run dev -- --host 0.0.0.0`, and open `http://<computer-LAN-IP>:5173/` on the computer. Use that same LAN-IP URL to reach the app on the other device; a QR code created while the instructor is using `localhost` or `127.0.0.1` points back to the phone itself and will not work. Find the computer's IPv4 address with `ipconfig` on Windows. If Windows Firewall prompts you, allow Node/Vite on the private network. Guest Wi-Fi or campus network isolation may block device-to-device access.
+
+This is a development-only test. For access outside the local Wi-Fi, deploy the `dist/` build to Cloudflare Pages and set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the Pages build environment. Then activate a survey and use the public deployed URL/QR code. Never expose the Supabase secret/service-role key in the frontend.
+
 The database transaction tests use pgTAP and run with `supabase test db` after starting the local stack. The student response RPC validates the active survey, every question and choice, required answers, and the anonymous browser token in one transaction. RLS prevents anonymous reads of response and answer rows.
 
 ## Verification
