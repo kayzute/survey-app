@@ -221,7 +221,7 @@ Implementation order for this build: Supabase PostgreSQL schema and policies, ba
 
 # Phase 15 — Productionization (Deferred; Render)
 
-- [ ] Push the project to GitHub.
+- [x] Push the project to GitHub.
 - [ ] Create a Render deployment when productionization begins.
 - [ ] Create a separate disposable Supabase project for the public demo.
 - [ ] Apply migrations and provision the demo instructor in that project.
@@ -249,4 +249,3 @@ Implementation order for this build: Supabase PostgreSQL schema and policies, ba
 - [ ] Add multiple instructors.
 - [ ] Add course and semester organization.
 - [ ] Add analytics across multiple surveys.
-
