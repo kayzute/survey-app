@@ -151,3 +151,38 @@ ewQuestion() at the time the user clicked Add question. The fallback regression 
 - Docker Desktop's published ports still bind to all interfaces on this Windows machine. Supabase CLI's project network is missing the network expected by pgTAP, so I attached the local database container to that test network without resetting its volume; 28 SQL tests then passed.
 - Recommended managing localhost-only Docker access deliberately, verifying host bindings, and assessing Docker-wide default changes before applying them. The user asked for an approach; no Docker Desktop global settings were changed.
 - Commit `d343c94` was pushed to `origin/main` after 30 frontend tests, lint, production build, and 28 pgTAP assertions passed. The demo provisioning migration was applied to local Supabase without resetting its data.
+
+### User prompt
+> We have the Supabase project already setup and it's connected via the URL and key. MVP wise we just need to test the CSV. Can we just step away from Docker Desktop now that Supabase is set up?
+
+### User decision / notable interaction
+- The hosted Supabase project is already created and configured; the remaining MVP verification requested is CSV export. The user wants to stop relying on Docker Desktop for normal app use.
+
+### User prompt
+> how do I unignore the .env.local? The links are already setup there.
+
+### Notable interaction
+- Clarified that `.env.local` being Git-ignored does not prevent Vite from reading it; checking only its configured URL host to confirm whether this checkout targets local or hosted Supabase.
+
+### User prompt
+> the variables I got from supabase are NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY. Should I just replace the values instead of the variable names
+
+### Notable interaction
+- Clarified that Supabase's `NEXT_PUBLIC_*` values need to be mapped to the Vite app's `VITE_*` variable names in local and Render configuration.
+
+### User prompt
+> okay now that it's switched and I'm testing in the chrome browser. There are a few issues I have noticed.
+>
+> - on the login page with Home INSTRUCTOR ACCESS is right next to it by a few pixels which is a UI issue.
+> - we still need the demo login button to bypass for TA grading of this project
+> - clicking the localhost qr code in a new tab does not allow me to submit a response
+
+### Notable interaction
+- Checked the current Chrome login page and confirmed the hosted Supabase URL was configured. The public survey QR route loaded the active Geography Check form in another Chrome tab. The user confirmed the submission flow test worked, so the localhost QR issue is resolved for same-computer testing; localhost remains limited to the current machine.
+- Updated local development demo-login eligibility to permit hosted Supabase when the app itself runs on loopback. The Render Blueprint already enables demo login for the deployed grading demo.
+
+### User reply
+> The flow test worked
+
+### Notable interaction
+- User confirmed submission from the QR-linked form worked in the same-computer Chrome test.

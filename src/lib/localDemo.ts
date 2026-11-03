@@ -8,8 +8,8 @@ export function isDemoLoginAllowed(
 ): boolean {
   if (!supabaseUrl) return false
   try {
-    const backendHostname = new URL(supabaseUrl).hostname
-    if (development && loopbackHosts.has(appHostname) && loopbackHosts.has(backendHostname)) return true
+    new URL(supabaseUrl)
+    if (development && loopbackHosts.has(appHostname)) return true
     return enableDeployedDemoLogin
   } catch {
     return false
