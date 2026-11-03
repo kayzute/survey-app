@@ -4,7 +4,7 @@
 
 This roadmap breaks the implementation into small, testable phases ordered from foundational work to advanced features.
 
-Implementation order for this build: Supabase PostgreSQL schema and policies, backend data access and validation, then the React frontend. Feature checkboxes have been reset to represent work that must be verified in this repository.
+Implementation order for this build: Supabase PostgreSQL schema and policies, backend data access and validation, then the React frontend. Checkboxes are checked only for functionality implemented in this repository; deployment and manual verification remain unchecked until completed.
 
 ---
 
@@ -46,155 +46,155 @@ Implementation order for this build: Supabase PostgreSQL schema and policies, ba
 
 # Phase 3 — Instructor Authentication
 
-- [ ] Create the instructor login page.
-- [ ] Connect login to Supabase Auth.
-- [ ] Add logout.
-- [ ] Create an authentication context/provider.
-- [ ] Create a protected-route component.
-- [ ] Redirect unauthenticated users to login.
-- [ ] Show the logged-in instructor in the dashboard.
+- [x] Create the instructor login page.
+- [x] Connect login to Supabase Auth.
+- [x] Add logout.
+- [x] Create an authentication context/provider.
+- [x] Create a protected-route component.
+- [x] Redirect unauthenticated users to login.
+- [x] Show the logged-in instructor in the dashboard.
 
 ---
 
 # Phase 4 — Instructor Dashboard
 
-- [ ] Create the dashboard layout.
-- [ ] Load surveys from Supabase.
-- [ ] Display survey title, status, and creation date.
-- [ ] Add status badges for Draft, Active, Closed, and Archived.
-- [ ] Add a New Survey button.
-- [ ] Add Edit action.
-- [ ] Add Duplicate action.
-- [ ] Add Delete action.
-- [ ] Add Archive action.
-- [ ] Add View Results action.
-- [ ] Add Activate action.
-- [ ] Add Close action.
-- [ ] Add search by survey title.
-- [ ] Add filtering by status.
+- [x] Create the dashboard layout.
+- [x] Load surveys from Supabase.
+- [x] Display survey title, status, and creation date.
+- [x] Add status badges for Draft, Active, Closed, and Archived.
+- [x] Add a New Survey button.
+- [x] Add Edit action.
+- [x] Add Duplicate action.
+- [x] Add Delete action.
+- [x] Add Archive action.
+- [x] Add View Results action.
+- [x] Add Activate action.
+- [x] Add Close action.
+- [x] Add search by survey title.
+- [x] Add filtering by status.
 
 ---
 
 # Phase 5 — Survey Editor
 
-- [ ] Create a survey editor page.
-- [ ] Add survey title field.
-- [ ] Add optional description field.
-- [ ] Add questions dynamically.
-- [ ] Support Multiple Choice questions.
-- [ ] Support True / False questions.
-- [ ] Add answer choices dynamically.
-- [ ] Reorder questions.
-- [ ] Reorder choices.
-- [ ] Delete questions.
-- [ ] Delete choices.
-- [ ] Validate required fields.
-- [ ] Save a survey as Draft.
-- [ ] Load an existing survey for editing.
-- [ ] Prevent editing an active survey unless it is first closed.
+- [x] Create a survey editor page.
+- [x] Add survey title field.
+- [x] Add optional description field.
+- [x] Add questions dynamically.
+- [x] Support Multiple Choice questions.
+- [x] Support True / False questions.
+- [x] Add answer choices dynamically.
+- [x] Reorder questions.
+- [x] Reorder choices.
+- [x] Delete questions.
+- [x] Delete choices.
+- [x] Validate required fields.
+- [x] Save a survey as Draft.
+- [x] Load an existing survey for editing.
+- [x] Prevent editing an active survey unless it is first closed.
 
 ---
 
 # Phase 6 — Survey Activation
 
-- [ ] Add activation logic.
-- [ ] Ensure at most one survey is Active.
-- [ ] Automatically close the previously active survey.
-- [ ] Generate a public survey slug or identifier.
-- [ ] Generate the public survey URL.
-- [ ] Generate a QR code from the public URL.
-- [ ] Create a Present Survey page.
-- [ ] Display survey title and QR code.
-- [ ] Display a readable fallback URL.
-- [ ] Add a Close Survey button.
-- [ ] Add a Download QR Code button.
+- [x] Add activation logic.
+- [x] Ensure at most one survey is Active.
+- [x] Automatically close the previously active survey.
+- [x] Generate a public survey slug or identifier.
+- [x] Generate the public survey URL.
+- [x] Generate a QR code from the public URL.
+- [x] Create a Present Survey page.
+- [x] Display survey title and QR code.
+- [x] Display a readable fallback URL.
+- [x] Add a Close Survey button.
+- [x] Add a Download QR Code button.
 
 ---
 
 # Phase 7 — Student Survey Page
 
-- [ ] Create the public route `/s/:surveyId`.
-- [ ] Load the requested active survey.
-- [ ] Show an error if the survey does not exist.
-- [ ] Show a message if the survey is closed.
-- [ ] Render survey title and description.
-- [ ] Render Multiple Choice questions.
-- [ ] Render True / False questions.
-- [ ] Validate required answers.
-- [ ] Add Submit button.
-- [ ] Store response and answers in Supabase.
-- [ ] Show a submission confirmation page.
-- [ ] Make the entire experience mobile friendly.
+- [x] Create the public route `/s/:surveyId`.
+- [x] Load the requested active survey.
+- [x] Show an error if the survey does not exist.
+- [x] Show a message if the survey is closed.
+- [x] Render survey title and description.
+- [x] Render Multiple Choice questions.
+- [x] Render True / False questions.
+- [x] Validate required answers.
+- [x] Add Submit button.
+- [x] Store response and answers in Supabase.
+- [x] Show a submission confirmation page.
+- [x] Make the entire experience mobile friendly.
 
 ---
 
 # Phase 8 — Duplicate Submission Protection
 
-- [ ] Generate an anonymous browser token.
-- [ ] Store the token in local storage.
-- [ ] Save the token with each response.
-- [ ] Prevent the same token from submitting twice to the same survey.
-- [ ] Show a friendly message if a duplicate submission is attempted.
-- [ ] Add a database uniqueness constraint if appropriate.
+- [x] Generate an anonymous browser token.
+- [x] Store the token in local storage.
+- [x] Save the token with each response.
+- [x] Prevent the same token from submitting twice to the same survey.
+- [x] Show a friendly message if a duplicate submission is attempted.
+- [x] Add a database uniqueness constraint if appropriate.
 
 ---
 
 # Phase 9 — Results Dashboard
 
-- [ ] Create a results page for each survey.
-- [ ] Show total response count.
-- [ ] Aggregate answers by question.
-- [ ] Show counts for each choice.
-- [ ] Show percentages for each choice.
-- [ ] Add bar charts using Recharts.
-- [ ] Clearly label unanswered questions.
-- [ ] Add Refresh Results button.
-- [ ] Add link back to the main dashboard.
+- [x] Create a results page for each survey.
+- [x] Show total response count.
+- [x] Aggregate answers by question.
+- [x] Show counts for each choice.
+- [x] Show percentages for each choice.
+- [x] Add bar charts using Recharts.
+- [x] Clearly label unanswered questions.
+- [x] Add Refresh Results button.
+- [x] Add link back to the main dashboard.
 
 ---
 
 # Phase 10 — Historical Results
 
-- [ ] Allow viewing results for Closed surveys.
-- [ ] Allow viewing results for Archived surveys.
-- [ ] Add filtering by date.
-- [ ] Add filtering by survey title.
-- [ ] Preserve all historical response data.
+- [x] Allow viewing results for Closed surveys.
+- [x] Allow viewing results for Archived surveys.
+- [x] Add filtering by date.
+- [x] Add filtering by survey title.
+- [x] Preserve all historical response data.
 
 ---
 
 # Phase 11 — CSV Export
 
-- [ ] Add Export CSV button.
-- [ ] Export survey metadata.
-- [ ] Export one row per response.
-- [ ] Include submission timestamp.
-- [ ] Include each question and answer.
-- [ ] Create safe CSV escaping.
+- [x] Add Export CSV button.
+- [x] Export survey metadata.
+- [x] Export one row per response.
+- [x] Include submission timestamp.
+- [x] Include each question and answer.
+- [x] Create safe CSV escaping.
 - [ ] Test export with spreadsheet applications.
 
 ---
 
 # Phase 12 — Survey Duplication
 
-- [ ] Duplicate survey title and description.
-- [ ] Duplicate questions.
-- [ ] Duplicate answer choices.
-- [ ] Create the copy in Draft state.
-- [ ] Add "Copy of ..." naming.
-- [ ] Redirect to the editor after duplication.
+- [x] Duplicate survey title and description.
+- [x] Duplicate questions.
+- [x] Duplicate answer choices.
+- [x] Create the copy in Draft state.
+- [x] Add "Copy of ..." naming.
+- [x] Redirect to the editor after duplication.
 
 ---
 
 # Phase 13 — UI Polish
 
-- [ ] Add consistent page layouts.
-- [ ] Improve mobile responsiveness.
-- [ ] Add loading states.
-- [ ] Add empty states.
-- [ ] Add error messages.
-- [ ] Add confirmation dialogs for destructive actions.
-- [ ] Improve QR-code presentation for classroom projection.
+- [x] Add consistent page layouts.
+- [x] Improve mobile responsiveness.
+- [x] Add loading states.
+- [x] Add empty states.
+- [x] Add error messages.
+- [x] Add confirmation dialogs for destructive actions.
+- [x] Improve QR-code presentation for classroom projection.
 - [ ] Test accessibility and keyboard navigation.
 - [ ] Improve color contrast.
 
@@ -202,20 +202,20 @@ Implementation order for this build: Supabase PostgreSQL schema and policies, ba
 
 # Phase 14 — Testing
 
-- [ ] Test instructor login.
-- [ ] Test survey creation.
-- [ ] Test survey editing.
-- [ ] Test activation.
-- [ ] Test closing surveys.
-- [ ] Test QR-code links.
-- [ ] Test student submissions.
-- [ ] Test duplicate-submission prevention.
-- [ ] Test results calculations.
-- [ ] Test CSV export.
+- [x] Test instructor login.
+- [x] Test survey creation.
+- [x] Test survey editing.
+- [x] Test activation.
+- [x] Test closing surveys.
+- [x] Test QR-code links.
+- [x] Test student submissions.
+- [x] Test duplicate-submission prevention.
+- [x] Test results calculations.
+- [x] Test CSV export.
 - [ ] Test mobile layout.
 - [ ] Test with at least two browsers.
-- [ ] Test unauthorized access attempts.
-- [ ] Test database Row Level Security.
+- [x] Test unauthorized access attempts.
+- [x] Test database Row Level Security.
 
 ---
 
@@ -225,10 +225,10 @@ Implementation order for this build: Supabase PostgreSQL schema and policies, ba
 - [ ] Create a Render deployment when productionization begins.
 - [ ] Create a separate disposable Supabase project for the public demo.
 - [ ] Apply migrations and provision the demo instructor in that project.
-- [ ] Enable the public demo login only for that demo deployment.
+- [x] Enable the public demo login only for that demo deployment.
 - [ ] Configure Render build and environment variables.
 - [ ] Deploy the application.
-- [ ] Configure SPA routing.
+- [x] Configure SPA routing.
 - [ ] Verify demo login and QR codes on the Render URL.
 - [ ] Test student submissions and instructor results on the demo deployment.
 

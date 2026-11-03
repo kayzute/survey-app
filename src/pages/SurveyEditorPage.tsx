@@ -79,6 +79,14 @@ export function SurveyEditorPage() {
     setQuestions(next)
   }
 
+  function moveChoice(question: EditableQuestion, index: number, direction: -1 | 1) {
+    const destination = index + direction
+    if (destination < 0 || destination >= question.choices.length) return
+    const choices = [...question.choices]
+    ;[choices[index], choices[destination]] = [choices[destination], choices[index]]
+    updateQuestion(question.key, { choices })
+  }
+
   async function handleSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const validation = validateDraft(title, questions)
@@ -145,6 +153,10 @@ export function SurveyEditorPage() {
                     <div className="choice-row" key={`${question.key}-${choiceIndex}`}>
                       <span className="choice-mark" aria-hidden="true">{String.fromCharCode(65 + choiceIndex)}</span>
                       <input aria-label={`Question ${index + 1}, choice ${choiceIndex + 1}`} value={choice.choice_text} onChange={(event) => updateChoice(question, choiceIndex, event.target.value)} disabled={question.question_type === 'true_false'} required />
+                      {question.question_type === 'multiple_choice' && <>
+                        <button type="button" className="button button-quiet button-small" aria-label={`Move choice ${choiceIndex + 1} up in question ${index + 1}`} onClick={() => moveChoice(question, choiceIndex, -1)} disabled={choiceIndex === 0}>↑</button>
+                        <button type="button" className="button button-quiet button-small" aria-label={`Move choice ${choiceIndex + 1} down in question ${index + 1}`} onClick={() => moveChoice(question, choiceIndex, 1)} disabled={choiceIndex === question.choices.length - 1}>↓</button>
+                      </>}
                       {question.question_type === 'multiple_choice' && <button type="button" className="button button-quiet button-small" aria-label={`Remove choice ${choiceIndex + 1} from question ${index + 1}`} onClick={() => updateQuestion(question.key, { choices: question.choices.filter((_, itemIndex) => itemIndex !== choiceIndex) })} disabled={question.choices.length <= 2}>Remove</button>}
                     </div>
                   ))}

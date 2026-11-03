@@ -109,6 +109,20 @@ export async function closeSurvey(id: string): Promise<Survey> {
   return data as Survey
 }
 
+export async function archiveSurvey(id: string): Promise<Survey> {
+  const client = getSupabaseClient()
+  const { data, error } = await client.rpc('archive_survey', { p_survey_id: id })
+  if (error) throw error
+  if (!data) throw new Error('No data was returned by the server.')
+  return data as Survey
+}
+
+export async function deleteSurvey(id: string): Promise<void> {
+  const client = getSupabaseClient()
+  const { error } = await client.rpc('delete_survey', { p_survey_id: id })
+  if (error) throw error
+}
+
 export async function submitSurveyResponse(
   surveyId: string,
   anonymousToken: string,

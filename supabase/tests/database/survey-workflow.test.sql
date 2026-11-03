@@ -1,5 +1,5 @@
 begin;
-select plan(24);
+select plan(28);
 
 insert into public.surveys (id, title, status, public_slug)
 values
@@ -98,6 +98,10 @@ select ok(not has_table_privilege('anon', 'public.answers', 'select'),
           'anonymous users cannot read answer rows');
 select ok(not has_function_privilege('anon', 'public.get_survey_results(uuid)', 'execute'),
           'anonymous users cannot call the results function');
+select ok(not has_function_privilege('anon', 'public.archive_survey(uuid)', 'execute'),
+          'anonymous users cannot archive surveys');
+select ok(not has_function_privilege('anon', 'public.delete_survey(uuid)', 'execute'),
+          'anonymous users cannot delete surveys');
 select ok(not has_table_privilege('authenticated', 'public.surveys', 'update'),
           'instructors change survey state through guarded RPCs');
 select ok(not has_table_privilege('authenticated', 'public.questions', 'delete'),
@@ -123,6 +127,13 @@ select throws_ok(
     format('select public.resolve_public_survey(%L)', current_setting('test.public_slug')),
     '22023', 'SURVEY_NOT_ACTIVE', 'closed public link reports that the survey is closed'
 );
+
+reset role;
+set local role authenticated;
+select is(public.archive_survey('10000000-0000-4000-8000-000000000002') ->> 'status',
+          'archived', 'instructor can archive a non-active survey');
+select lives_ok($$select public.delete_survey('10000000-0000-4000-8000-000000000002')$$,
+                'instructor can permanently delete a non-active survey');
 
 select * from finish();
 rollback;

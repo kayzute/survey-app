@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run build
+      - name: Build Render demo with public demo login enabled
+        run: npm run build
+        env:
+          VITE_ENABLE_DEMO_LOGIN: 'true'
+
+  database:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx supabase start
+        env:
+          SUPABASE_TELEMETRY_DISABLED: '1'
+      - run: npx supabase test db
+        env:
+          SUPABASE_TELEMETRY_DISABLED: '1'
+      - if: always()
+        run: npx supabase stop
+        env:
+          SUPABASE_TELEMETRY_DISABLED: '1'

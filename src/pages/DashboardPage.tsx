@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppHeader } from '../components/AppHeader'
 import { toFriendlyError } from '../lib/errors'
-import { activateSurvey, closeSurvey, duplicateSurvey, listSurveys } from '../lib/surveyApi'
+import { activateSurvey, archiveSurvey, closeSurvey, deleteSurvey, duplicateSurvey, listSurveys } from '../lib/surveyApi'
 import type { Survey, SurveyStatus } from '../lib/types'
 
 const statusLabels: Record<SurveyStatus, string> = {
@@ -15,6 +15,8 @@ export function DashboardPage() {
   const [busyId, setBusyId] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [status, setStatus] = useState<SurveyStatus | 'all'>('all')
+  const [dateFrom, setDateFrom] = useState('')
+  const [dateTo, setDateTo] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
@@ -37,7 +39,9 @@ export function DashboardPage() {
 
   const filtered = useMemo(() => surveys.filter((survey) =>
     survey.title.toLocaleLowerCase().includes(search.trim().toLocaleLowerCase())
-    && (status === 'all' || survey.status === status)), [search, status, surveys])
+    && (status === 'all' || survey.status === status)
+    && (!dateFrom || survey.created_at.slice(0, 10) >= dateFrom)
+    && (!dateTo || survey.created_at.slice(0, 10) <= dateTo)), [dateFrom, dateTo, search, status, surveys])
 
   async function handleActivate(survey: Survey) {
     setBusyId(survey.id)
@@ -79,6 +83,24 @@ export function DashboardPage() {
     }
   }
 
+  async function handleArchive(survey: Survey) {
+    if (!window.confirm(`Archive “${survey.title}”? Its results will remain available.`)) return
+    setBusyId(survey.id)
+    setError('')
+    try { await archiveSurvey(survey.id); await refresh() }
+    catch (cause) { setError(toFriendlyError(cause)) }
+    finally { setBusyId(null) }
+  }
+
+  async function handleDelete(survey: Survey) {
+    if (!window.confirm(`Permanently delete “${survey.title}” and all its questions and responses? This cannot be undone.`)) return
+    setBusyId(survey.id)
+    setError('')
+    try { await deleteSurvey(survey.id); await refresh() }
+    catch (cause) { setError(toFriendlyError(cause)) }
+    finally { setBusyId(null) }
+  }
+
   return (
     <>
       <AppHeader />
@@ -94,6 +116,8 @@ export function DashboardPage() {
             <option value="all">All statuses</option>
             {Object.entries(statusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
           </select></label>
+          <label>Created from<input aria-label="Created from" type="date" value={dateFrom} onChange={(event) => setDateFrom(event.target.value)} /></label>
+          <label>Created through<input aria-label="Created through" type="date" value={dateTo} onChange={(event) => setDateTo(event.target.value)} /></label>
         </div>
         {loading ? <div className="center-state">Loading surveys…</div> : filtered.length === 0 ? (
           <section className="empty-state panel">
@@ -114,7 +138,9 @@ export function DashboardPage() {
                   {survey.status === 'active' && <Link className="button button-primary" to={`/surveys/${survey.id}/present`}>Present</Link>}
                   {survey.status === 'active' && <button className="button button-secondary" onClick={() => void handleClose(survey)} disabled={busyId === survey.id}>{busyId === survey.id ? 'Closing…' : 'Close'}</button>}
                   {survey.status !== 'draft' && <Link className="button button-secondary" to={`/surveys/${survey.id}/results`}>Results</Link>}
+                  {survey.status !== 'active' && survey.status !== 'archived' && <button className="button button-quiet" onClick={() => void handleArchive(survey)} disabled={busyId === survey.id}>Archive</button>}
                   <button className="button button-quiet" onClick={() => void handleDuplicate(survey)} disabled={busyId === survey.id}>{busyId === survey.id ? 'Copying…' : 'Duplicate'}</button>
+                  {survey.status !== 'active' && <button className="button button-danger-quiet" onClick={() => void handleDelete(survey)} disabled={busyId === survey.id}>Delete</button>}
                 </div>
               </article>
             ))}

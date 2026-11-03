@@ -126,3 +126,27 @@ ewQuestion() at the time the user clicked Add question. The fallback regression 
 - Switched ignored `.env.local` to local Supabase and changed Vite to bind only `127.0.0.1`; removed the Cloudflare Pages redirect and hosting instructions.
 - Local Supabase's email/password Auth configuration needed a stop/start before it took effect. After restart, the demo account signed in successfully. pgTAP passed all 24 assertions.
 - Added a local-only demo login button and explicit opt-in support for a future hosted demo build. Production build with the flag disabled omits the demo credentials.
+
+### User clarification
+> This app is not going to be built for users. I actually want the button included in the deployed version once we move the app to Render to deploy.
+
+### Recorded decision outside supplied context documents
+- Keep the demo instructor shortcut available in the future Render deployment as well as for local demos. Enable it for that build with `VITE_ENABLE_DEMO_LOGIN=true`; use a separate disposable Supabase project because the shared credentials will be public.
+
+### User prompt
+> What's left to implement now from the context files before we deploy to Render?
+
+### Notable interaction
+- I compared the TODO, API, database, UI, and app specification against the current implementation. The TODO's implementation checkboxes remain unchecked despite completed code, so they need an evidence-based update as features are verified. Core survey flows are in place; remaining pre-deployment work is concentrated in missing survey management/historical features, release setup, and end-to-end/device verification.
+
+### User prompt
+> Okay, let's implement the rest and check off the TODO boxes. Update them accordingly. Switch on the demo sign-in and establish the tests. Let's finish this out.
+>
+> Regarding the Docker Desktop, how should we approach this?
+
+### Decisions and notable interactions
+- Implemented dashboard archive/delete actions with confirmation, choice reordering, and survey creation-date filters. Added authenticated-only database RPCs and pgTAP coverage for archiving/deleting.
+- Enabled the public demo sign-in in the Render Blueprint while keeping local env defaults off; added a guarded, ignored-file-based script to provision the demo instructor in a disposable hosted Supabase project.
+- Added GitHub Actions for frontend checks, both demo-disabled and Render demo-enabled builds, and local Supabase pgTAP tests. Updated TODO checkboxes based on code and tests; manual cross-browser/device/accessibility and actual cloud deployment remain unchecked.
+- Docker Desktop's published ports still bind to all interfaces on this Windows machine. Supabase CLI's project network is missing the network expected by pgTAP, so I attached the local database container to that test network without resetting its volume; 28 SQL tests then passed.
+- Recommended managing localhost-only Docker access deliberately, verifying host bindings, and assessing Docker-wide default changes before applying them. The user asked for an approach; no Docker Desktop global settings were changed.
